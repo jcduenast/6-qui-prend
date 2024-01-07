@@ -117,7 +117,7 @@ def get_card_points(list_of_cards):
 
 rows, deck = start_game()
 running = True
-num_players = 3
+num_players = 2
 players_cards, players_point_cards = get_players_cards(deck, num_players)
 
 # ## Test of points per card
@@ -133,4 +133,12 @@ for turn in range(0,10):
     players_selections = get_players_input(num_players, players_cards, players_point_cards)
     process_turn(rows, players_selections, players_point_cards)
 
-print_state(rows, deck)
+winner = -1
+lowest_score = get_card_points(list(range(1,105)))
+
+for player_id in range(num_players):
+    player_sum = get_card_points(players_point_cards[player_id])
+    if player_sum < lowest_score:
+        winner = player_id
+
+print("The winner is player", winner+1)
